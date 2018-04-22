@@ -1,5 +1,17 @@
+/*
+Colors:
+#262728
+#8C9ED1
+#F7F8FC
+*/
+
 .app {
   display: flex;
   flex-direction: column;
   align-items: center;
+  height: 100vh;
+
+  background-color: #262728;
+
+  font-family: 'Roboto', sans-serif;
 }

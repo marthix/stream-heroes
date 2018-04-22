@@ -1,84 +1,80 @@
 import React, { Component } from 'react';
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import './App.css';
+import Navigation from './components/Navigation.jsx';
+import Home from './containers/Home';
+import Heroes from './containers/Heroes';
+import Streams from './containers/Streams';
 
 class App extends Component {
 
-  getInitialState = () => {
-
-    return {
-      isAuthenticated: false,
-      accessToken: '',
-      idToken: '',
-    };
-
-  };
-  state = this.getInitialState();
-
   componentDidMount = () => {
 
-    if (window.location.hash.includes('access_token') && window.location.hash.includes('id_token')) {
-
-      // handle Twitch authenticate redirect
-
-      let hash = window.location.hash.substr(1);
-      let accessToken = hash.substr(hash.indexOf('access_token=')).split('&')[0].split('=')[1];
-      let idToken = hash.substr(hash.indexOf('id_token=')).split('&')[0].split('=')[1];
-
-      localStorage.setItem('accessTokenTwitch', accessToken);
-      localStorage.setItem('idTokenTwitch', idToken);
-
-      window.location = '/';
-
-    } else {
-
-      // check if user is already authenticated
-
-      let accessToken = localStorage.getItem("accessTokenTwitch");
-      let idToken = localStorage.getItem("idTokenTwitch");
-
-      if (!idToken || !accessToken) {
-        this.setState({ isAuthenticated: false });
-      } else {
-        this.setState({
-          isAuthenticated: true,
-          accessToken: accessToken,
-          idToken: idToken
-        }, () => {
-          this.loadUser();
-        });
-      }
-
-    }
+    this.loadStreamData();
+    this.loadGameData(['488552', '138585']);
 
   };
 
-  handleLogin = () => {
 
-    window.location = `https://id.twitch.tv/oauth2/authorize?client_id=n9iy3rdfyqyf6wt3xuwpwygh401qnc&redirect_uri=http://localhost:3000/&response_type=token+id_token&scope=openid`;
+  loadStreamData = (gameId) => {
 
-  };
-
-  loadUser = () => {
-
-    fetch('https://api.twitch.tv/helix/users?id=44322889', {
-      headers: { 'Authorization': 'Bearer ' + this.state.accessToken }
+    fetch('https://api.twitch.tv/helix/streams?first=20&game_id=' + gameId, {
+      headers: { 'Client-ID': 'n9iy3rdfyqyf6wt3xuwpwygh401qnc' }
     })
       .then(function(response) {
         return response.json();
       })
       .then(function(myJson) {
-        console.log(myJson);
+        // console.log(myJson);
       });
-  };
+
+  }
+
+  loadGameData = (gameIds) => {
+
+    let params = '';
+    gameIds.forEach((id) => {
+      params += (params === '' ? 'id=' : '&id=') + id;
+    })
+
+    fetch('https://api.twitch.tv/helix/games?' + params, {
+      headers: { 'Client-ID': 'n9iy3rdfyqyf6wt3xuwpwygh401qnc' }
+    })
+      .then(function(response) {
+        return response.json();
+      })
+      .then(function(myJson) {
+        // console.log(myJson);
+      });
+
+  }
+
+  loadHeroData = () => {
+
+    fetch('https://api.twitch.tv/helix/streams/metadata?game_id=488552&game_id=138585&first=100', {
+      headers: { 'Client-ID': 'n9iy3rdfyqyf6wt3xuwpwygh401qnc' }
+    })
+      .then(function(response) {
+        return response.json();
+      })
+      .then(function(myJson) {
+        // console.log(myJson);
+      });
+
+  }
 
   render() {
-    console.log(this.state.isAuthenticated);
+
     return (
-      <div className="app">
-        <h1>Stream</h1>
-        <h1>Heroes</h1>
-        <button onClick={this.handleLogin}>Login to Twitch</button>
-      </div>
+      <Router>
+        <div className="app">
+          <Navigation />
+
+          <Route exact path="/" component={Home} />
+          <Route path="/heroes" component={Heroes} />
+          <Route path="/streams" component={Streams} />
+        </div>
+      </Router>
     );
   }
 }
