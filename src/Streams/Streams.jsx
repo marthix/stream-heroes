@@ -33,13 +33,13 @@ class Streams extends Component {
         })
       });
 
-  }
+  };
 
   handleGameSelected = (gameId) => {
     this.setState({
       selectedGameId: gameId
     });
-  }
+  };
 
   render() {
     return (
@@ -57,7 +57,7 @@ class Streams extends Component {
 
       </div>
     );
-  }
+  };
 }
 
 export default Streams;

@@ -2,15 +2,15 @@ import React, { Component } from 'react';
 
 class LoginButton extends Component {
 
-    getInitialState = () => {
+  getInitialState = () => {
 
-      return {
-        accessToken: '',
-        idToken: '',
-      };
-
+    return {
+      accessToken: '',
+      idToken: '',
     };
-    state = this.getInitialState();
+
+  };
+  state = this.getInitialState();
 
   componentDidMount = () => {
 
@@ -58,7 +58,7 @@ class LoginButton extends Component {
     return (
       <button onClick={this.handleLogin}>Login to Twitch</button>
     );
-  }
+  };
 }
 
 export default LoginButton;

@@ -1,21 +1,21 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 import './Navigation.css';
 
-export default class Navigation extends React.Component {
+class Navigation extends Component {
 
   getInitialState = () => {
     return {
       selected: window.location.pathname.substr(1)
     };
-  }
+  };
   state = this.getInitialState();
 
   handleSelect = (link) => {
     this.setState({
       selected: link
     })
-  }
+  };
 
   render() {
     return (
@@ -34,5 +34,7 @@ export default class Navigation extends React.Component {
         </ul>
       </nav>
     );
-  }
+  };
 }
+
+export default Navigation;

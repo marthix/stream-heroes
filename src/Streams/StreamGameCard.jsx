@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import './GameCard.css'
+import './StreamGameCard.css'
 
-class GameCard extends Component {
+class StreamGameCard extends Component {
 
   static propTypes = {
     id: PropTypes.string.isRequired,
@@ -13,7 +13,7 @@ class GameCard extends Component {
 
   handleSelect = () => {
     this.props.onSelected(this.props.id);
-  }
+  };
 
   render() {
     return (
@@ -22,7 +22,7 @@ class GameCard extends Component {
         <p className="name" title={this.props.name}>{this.props.name}</p>
       </div>
     );
-  }
+  };
 }
 
-export default GameCard;
+export default StreamGameCard;

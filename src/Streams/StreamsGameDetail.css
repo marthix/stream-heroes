@@ -1,0 +1,26 @@
+.container-streams-game-detail {
+  width: 1140px;
+  padding: 2rem;
+  margin: 0 auto;
+}
+
+.container-streams {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.btn-back {
+  padding: .5rem 1rem;
+  background-color: #8C9ED1;
+  color: #F7F8FC;
+  border: 1px solid #F7F8FC;
+  border-radius: .25rem;
+
+  transition: .3s ease all;
+}
+
+.btn-back:hover {
+  color: #262728;
+  cursor: pointer;
+}

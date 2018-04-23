@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import './StreamGames.css'
-import GameCard from './GameCard.jsx'
+import StreamGameCard from './StreamGameCard.jsx'
 
 class StreamGames extends Component {
 
@@ -10,16 +10,20 @@ class StreamGames extends Component {
     onSelectGame: PropTypes.func.isRequired
   };
 
+  static defaultProps = {
+    games: []
+  };
+
   render() {
     return (
-      <main className="container">
+      <main className="container-stream-games">
 
         {(() => {
           if (this.props.games.length > 0) {
 
             return this.props.games.map((game) => {
               let imageUrl = game.box_art_url.replace('{width}x{height}.jpg','') + '285x380.jpg';
-              return <GameCard key={'game' + game.id} id={game.id} name={game.name} imageUrl={imageUrl} onSelected={this.props.onSelectGame} />
+              return <StreamGameCard key={'game' + game.id} id={game.id} name={game.name} imageUrl={imageUrl} onSelected={this.props.onSelectGame} />
             })
 
           }
@@ -28,7 +32,7 @@ class StreamGames extends Component {
 
       </main>
     );
-  }
+  };
 }
 
 export default StreamGames;

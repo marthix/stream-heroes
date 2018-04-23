@@ -10,25 +10,9 @@ class App extends Component {
 
   componentDidMount = () => {
 
-    // this.loadStreamData();
     // this.loadGameData(['488552', '138585']);
 
   };
-
-
-  loadStreamData = (gameId) => {
-
-    fetch('https://api.twitch.tv/helix/streams?first=20&game_id=' + gameId, {
-      headers: { 'Client-ID': 'n9iy3rdfyqyf6wt3xuwpwygh401qnc' }
-    })
-      .then(function(response) {
-        return response.json();
-      })
-      .then(function(myJson) {
-        // console.log(myJson);
-      });
-
-  }
 
   loadGameData = (gameIds) => {
 
@@ -47,7 +31,7 @@ class App extends Component {
         // console.log(myJson);
       });
 
-  }
+  };
 
   loadHeroData = () => {
 
@@ -61,7 +45,7 @@ class App extends Component {
         // console.log(myJson);
       });
 
-  }
+  };
 
   render() {
 
@@ -76,7 +60,7 @@ class App extends Component {
         </div>
       </Router>
     );
-  }
+  };
 }
 
 export default App;
