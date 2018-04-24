@@ -49,16 +49,42 @@ class Heroes extends Component {
 
         this.setState({
           heroes: newHeroes
+        }, () => {
+
+          // DANGEROUS: modify loadHeroTracker to get ALL the hero data. This can cause rate limit issues.
+          // TODO: figure out rate limit requirements
+          // if (heroesJson.data.length === 100) {
+          if (heroesJson.data.length === 100 && this.loadHeroTracker < 3) {
+            this.loadHeroPagination = heroesJson.pagination.cursor;
+            this.loadHeroTracker++
+            this.loadHeroData(gameId);
+          } else {
+
+            let topHeroes = {};
+            let topRoles = {};
+            this.state.heroes.forEach((hero) => {
+              if (!topHeroes[hero.name]) {
+                topHeroes[hero.name] = 0;
+              }
+              if (!topRoles[hero.role]) {
+                topRoles[hero.role] = 0;
+              }
+              ++topRoles[hero.role];
+              ++topHeroes[hero.name];
+            })
+
+            console.log(topHeroes);
+            console.log(topRoles);
+
+            this.setState({
+              topRoleStreaming: '',
+              topHeroStreaming: '',
+            })
+
+          }
+
         });
 
-        // DANGEROUS: modify loadHeroTracker to get ALL the hero data. This can cause rate limit issues.
-        // TODO: figure out rate limit requirements
-        // if (heroesJson.data.length === 100) {
-        if (heroesJson.data.length === 100 && this.loadHeroTracker < 3) {
-          this.loadHeroPagination = heroesJson.pagination.cursor;
-          this.loadHeroTracker++
-          this.loadHeroData(gameId);
-        }
       });
 
   };
