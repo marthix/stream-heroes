@@ -12,7 +12,7 @@ class StreamGameCard extends Component {
   };
 
   handleSelect = () => {
-    this.props.onSelected(this.props.id);
+    this.props.onSelected(this.props.id, this.props.name, this.props.imageUrl);
   };
 
   render() {

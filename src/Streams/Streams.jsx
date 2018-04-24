@@ -8,7 +8,7 @@ class Streams extends Component {
   getInitialState = () => {
     return {
       games: [],
-      selectedGameId: ''
+      selectedGame: {}
     };
   }
   state = this.getInitialState();
@@ -35,9 +35,15 @@ class Streams extends Component {
 
   };
 
-  handleGameSelected = (gameId) => {
+  handleGameSelected = (gameId, gameName, gameImageUrl) => {
+    let game = {
+      id: gameId,
+      name: gameName,
+      imageUrl: gameImageUrl
+    };
+
     this.setState({
-      selectedGameId: gameId
+      selectedGame: game
     });
   };
 
@@ -47,8 +53,8 @@ class Streams extends Component {
 
         {(() => {
 
-          if (this.state.selectedGameId) {
-            return <StreamsGameDetail id={this.state.selectedGameId} onBackClick={() => {this.setState({ selectedGameId: '' })}}/>
+          if (Object.keys(this.state.selectedGame).length !== 0) {
+            return <StreamsGameDetail game={this.state.selectedGame} onBackClick={() => {this.setState({ selectedGame: {} })}}/>
           } else {
             return <StreamGames games={this.state.games} onSelectGame={this.handleGameSelected} />;
           }

@@ -2,6 +2,7 @@
   width: 1140px;
   padding: 2rem;
   margin: 0 auto;
+  color: #F7F8FC;
 }
 
 .container-streams {
@@ -10,17 +11,60 @@
   justify-content: center;
 }
 
+.stream-game-header {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  text-align: center;
+}
+
 .btn-back {
+  height: 40px;
   padding: .5rem 1rem;
   background-color: #8C9ED1;
-  color: #F7F8FC;
   border: 1px solid #F7F8FC;
   border-radius: .25rem;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
 
   transition: .3s ease all;
 }
 
 .btn-back:hover {
-  color: #262728;
+  color: #F7F8FC;
   cursor: pointer;
+}
+
+/* Table CSS */
+.streams-game-table {
+  margin: 1rem;
+  border-collapse: collapse;
+  border-spacing: 0;
+  empty-cells: show;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+}
+
+.streams-game-table td,
+.streams-game-table th {
+  border-width: 0 0 0 1px;
+  margin: 0;
+  overflow: visible;
+  padding: 0.5rem 1rem;
+}
+
+.streams-game-table thead {
+  background-color: #8C9ED1;
+  color: #262728;
+  text-align: left;
+  vertical-align: bottom;
+}
+
+.streams-game-table td {
+  background-color: transparent;
+}
+.streams-game-table-odd td {
+  background-color: rgba(0, 0, 0, 10%);
+}
+
+.streams-game-table a {
+  color: #8C9ED1;
 }

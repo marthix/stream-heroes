@@ -8,40 +8,15 @@ import Streams from './Streams/Streams.jsx';
 
 class App extends Component {
 
-  componentDidMount = () => {
-
-    // this.loadGameData(['488552', '138585']);
-
-  };
-
-  loadGameData = (gameIds) => {
-
-    let params = '';
-    gameIds.forEach((id) => {
-      params += (params === '' ? 'id=' : '&id=') + id;
-    })
-
-    fetch('https://api.twitch.tv/helix/games?' + params, {
-      headers: { 'Client-ID': 'n9iy3rdfyqyf6wt3xuwpwygh401qnc' }
-    })
-      .then(function(response) {
-        return response.json();
-      })
-      .then(function(myJson) {
-        // console.log(myJson);
-      });
-
-  };
-
   loadHeroData = () => {
 
     fetch('https://api.twitch.tv/helix/streams/metadata?game_id=488552&game_id=138585&first=100', {
       headers: { 'Client-ID': 'n9iy3rdfyqyf6wt3xuwpwygh401qnc' }
     })
-      .then(function(response) {
+      .then((response) => {
         return response.json();
       })
-      .then(function(myJson) {
+      .then((myJson) => {
         // console.log(myJson);
       });
 
