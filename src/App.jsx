@@ -8,20 +8,6 @@ import Streams from './Streams/Streams.jsx';
 
 class App extends Component {
 
-  loadHeroData = () => {
-
-    fetch('https://api.twitch.tv/helix/streams/metadata?game_id=488552&game_id=138585&first=100', {
-      headers: { 'Client-ID': 'n9iy3rdfyqyf6wt3xuwpwygh401qnc' }
-    })
-      .then((response) => {
-        return response.json();
-      })
-      .then((myJson) => {
-        // console.log(myJson);
-      });
-
-  };
-
   render() {
 
     return (

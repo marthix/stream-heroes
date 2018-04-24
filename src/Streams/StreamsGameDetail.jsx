@@ -92,10 +92,11 @@ class StreamsGameDetail extends Component {
               {(() => {
                 if (this.state.streams.length > 0 && this.state.users.length > 0) {
 
-                  return this.state.streams.map((stream) => {
+                  return this.state.streams.map((stream, i) => {
                     let user = this.state.users.find(user => user.id === stream.user_id);
+                    let cssClass = i % 2 ? 'streams-game-table-odd' : ''
                     return (
-                      <tr key={'stream' + stream.id}>
+                      <tr key={'stream' + stream.id} className={cssClass}>
                         <td><img src={user.profile_image_url} alt={user.display_name + '\'s profile image'} width="40px" /></td>
                         <td><a href={'https://www.twitch.tv/' + user.login} target="_blank">{user.display_name}</a></td>
                         <td>{stream.title}</td>
