@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import update from 'immutability-helper';
 import './Heroes.css';
-import TopCard from './TopCard.jsx'
-import PageLoader from '../shared/PageLoader.jsx'
+import TopCard from './TopCard.jsx';
+import PageLoader from '../shared/PageLoader.jsx';
+import { HorizontalBar } from 'react-chartjs-2';
 
 class Heroes extends Component {
 
@@ -12,8 +13,8 @@ class Heroes extends Component {
       selectedHeroRoleToggle: 'HERO',
       selectedPlayViewToggle: 'PLAY',
       heroes: [],
-      heroesCounts: {},
-      rolesCounts: {},
+      heroesCount: {},
+      rolesCount: {},
       topHero: '',
       topRole: '',
       isHeroDataLoaded: false
@@ -92,30 +93,40 @@ class Heroes extends Component {
 
   parseHeroAndRoleData = () => {
 
-    let heroesCounts = {};
-    let rolesCounts = {};
+    let heroesCount = {};
+    let rolesCount = {};
     this.state.heroes.forEach((hero) => {
-      if (!heroesCounts[hero.name]) {
-        heroesCounts[hero.name] = 0;
+      if (!heroesCount[hero.name]) {
+        heroesCount[hero.name] = 0;
       }
-      if (!rolesCounts[hero.role]) {
-        rolesCounts[hero.role] = 0;
+      if (!rolesCount[hero.role]) {
+        rolesCount[hero.role] = 0;
       }
-      ++rolesCounts[hero.role];
-      ++heroesCounts[hero.name];
+      ++rolesCount[hero.role];
+      ++heroesCount[hero.name];
     })
 
-    let topHero = Object.keys(heroesCounts).reduce((a, b) => {
-      return heroesCounts[a] > heroesCounts[b] ? a : b
+    let orderedHeroes = {};
+    Object.keys(heroesCount).sort().forEach(function(key) {
+      orderedHeroes[key] = heroesCount[key];
     });
 
-    let topRole = Object.keys(rolesCounts).reduce((a, b) => {
-      return rolesCounts[a] > rolesCounts[b] ? a : b
+    let orderedRoles = {};
+    Object.keys(rolesCount).sort().forEach(function(key) {
+      orderedRoles[key] = rolesCount[key];
+    });
+
+    let topHero = Object.keys(heroesCount).reduce((a, b) => {
+      return heroesCount[a] > heroesCount[b] ? a : b
+    });
+
+    let topRole = Object.keys(rolesCount).reduce((a, b) => {
+      return rolesCount[a] > rolesCount[b] ? a : b
     });
 
     this.setState({
-      heroesCounts: heroesCounts,
-      rolesCounts: rolesCounts,
+      heroesCount: orderedHeroes,
+      rolesCount: orderedRoles,
       topRole: topRole,
       topHero: topHero
     })
@@ -124,17 +135,56 @@ class Heroes extends Component {
 
   render() {
 
+    let heroes = [];
+    let counts = [];
+
+    for (let key in this.state.heroesCount) {
+      if (this.state.heroesCount.hasOwnProperty(key)) {
+        heroes.push(key);
+        counts.push(this.state.heroesCount[key]);
+      }
+    }
+
+    const chartData = {
+        labels: heroes,
+        datasets: [{
+          backgroundColor: 'rgba(140, 158, 209, 0.4)',
+          borderColor: 'rgba(140, 158, 209, 0.8)',
+          borderWidth: 1,
+          data: counts,
+        }]
+    }
+
+    const chartOptions = {
+      legend: { display: false },
+      maintainAspectRatio: true,
+      responsive: true,
+      scales: {
+        xAxes: [{
+          scaleLabel: {
+            display: true,
+            labelString: 'Streamers playing'
+          }
+        }]
+      }
+    }
+
     if (!this.state.isHeroDataLoaded) {
       return <PageLoader />
     } else {
       return (
         <div className="heroes">
           <div className="chart">
-
+            <HorizontalBar
+              data={chartData}
+              width={19}
+              height={9}
+              options={chartOptions}
+              />
           </div>
           <div className="top">
-            <TopCard title="Role" topName={this.state.topRole} topCount={this.state.rolesCounts[this.state.topRole]}/>
-            <TopCard title="Hero" topName={this.state.topHero} topCount={this.state.heroesCounts[this.state.topHero]}/>
+            <TopCard title="Role" topName={this.state.topRole} topCount={this.state.rolesCount[this.state.topRole]}/>
+            <TopCard title="Hero" topName={this.state.topHero} topCount={this.state.heroesCount[this.state.topHero]}/>
           </div>
         </div>
       );

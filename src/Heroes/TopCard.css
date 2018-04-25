@@ -1,3 +1,7 @@
+.top-card {
+  margin: 1rem 0;
+}
+
 .top-card h1 {
   margin: .5rem 0;
   font-size: 4rem;

@@ -36,6 +36,7 @@
 
 /* Table CSS */
 .streams-game-table {
+  width: 100%;
   margin: 1rem;
   border-collapse: collapse;
   border-spacing: 0;
@@ -49,6 +50,10 @@
   margin: 0;
   overflow: visible;
   padding: 0.5rem 1rem;
+}
+
+.streams-game-table tbody tr {
+  height: 60px;
 }
 
 .streams-game-table thead {
