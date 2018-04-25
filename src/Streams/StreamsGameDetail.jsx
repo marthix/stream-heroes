@@ -74,7 +74,7 @@ class StreamsGameDetail extends Component {
             <h1>{this.props.game.name}</h1>
             <h3>Top 100 Current Streamers</h3>
           </div>
-          <img src={this.props.game.imageUrl} width="90px"/>
+          <img src={this.props.game.imageUrl} alt={this.props.game.name ' box art'} width="90px"/>
         </div>
         <main className="container-streams">
 
