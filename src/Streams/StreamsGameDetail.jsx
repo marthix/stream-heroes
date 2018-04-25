@@ -1,21 +1,22 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import './StreamsGameDetail.css'
+import LazyLoadImage from '../shared/LazyLoadImage.jsx';
 
 class StreamsGameDetail extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      streams: [],
+      users: []
+    };
+  }
 
   static propTypes = {
     game: PropTypes.object.isRequired,
     onBackClick: PropTypes.func.isRequired
   };
-
-  getInitialState = () => {
-    return {
-      streams: [],
-      users: []
-    };
-  };
-  state = this.getInitialState();
 
   componentDidMount = () => {
     this.loadStreamData(this.props.game.id);
