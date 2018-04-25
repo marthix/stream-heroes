@@ -7,8 +7,9 @@ import { HorizontalBar } from 'react-chartjs-2';
 
 class Heroes extends Component {
 
-  getInitialState = () => {
-    return {
+  constructor(props) {
+    super(props);
+    this.state = {
       selectedGameId: '488552',
       selectedHeroRoleToggle: 'HERO',
       selectedPlayViewToggle: 'PLAY',
@@ -19,8 +20,7 @@ class Heroes extends Component {
       topRole: '',
       isHeroDataLoaded: false
     };
-  };
-  state = this.getInitialState();
+  }
 
   loadHeroDataIntervalId = '';
   componentDidMount = () => {

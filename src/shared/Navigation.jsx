@@ -4,12 +4,12 @@ import './Navigation.css';
 
 class Navigation extends Component {
 
-  getInitialState = () => {
-    return {
+  constructor(props) {
+    super(props);
+    this.state = {
       selected: window.location.pathname.substr(1)
     };
-  };
-  state = this.getInitialState();
+  }
 
   handleSelect = (link) => {
     this.setState({

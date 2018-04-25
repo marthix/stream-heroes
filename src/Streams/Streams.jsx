@@ -6,14 +6,14 @@ import PageLoader from '../shared/PageLoader.jsx'
 
 class Streams extends Component {
 
-  getInitialState = () => {
-    return {
+  constructor(props) {
+    super(props);
+    this.state = {
       games: [],
       selectedGame: {},
       isGameDataLoaded: false
     };
   }
-  state = this.getInitialState();
 
   componentDidMount = () => {
 

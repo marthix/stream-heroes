@@ -2,15 +2,13 @@ import React, { Component } from 'react';
 
 class LoginButton extends Component {
 
-  getInitialState = () => {
-
-    return {
+  constructor(props) {
+    super(props);
+    this.state = {
       accessToken: '',
       idToken: '',
     };
-
-  };
-  state = this.getInitialState();
+  }
 
   componentDidMount = () => {
 
