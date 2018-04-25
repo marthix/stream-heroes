@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import './StreamsGameDetail.css'
-import LazyLoadImage from '../shared/LazyLoadImage.jsx';
 
 class StreamsGameDetail extends Component {
 
