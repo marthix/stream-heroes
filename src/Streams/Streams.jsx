@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
-import './Streams.css'
-import StreamGames from './StreamGames.jsx'
-import StreamsGameDetail from './StreamsGameDetail.jsx'
+import './Streams.css';
+import StreamGames from './StreamGames.jsx';
+import StreamsGameDetail from './StreamsGameDetail.jsx';
+import PageLoader from '../shared/PageLoader.jsx'
 
 class Streams extends Component {
 
   getInitialState = () => {
     return {
       games: [],
-      selectedGame: {}
+      selectedGame: {},
+      isGameDataLoaded: false
     };
   }
   state = this.getInitialState();
@@ -28,9 +30,16 @@ class Streams extends Component {
         return response.json();
       })
       .then((games) => {
+
+        if (!this.state.isGameDataLoaded) {
+          this.setState({
+            isGameDataLoaded: true
+          });
+        }
+
         this.setState({
           games: games.data
-        })
+        });
       });
 
   };
@@ -48,21 +57,27 @@ class Streams extends Component {
   };
 
   render() {
-    return (
-      <div className="streams">
 
-        {(() => {
+    if (!this.state.isGameDataLoaded) {
+      return <PageLoader />
+    } else {
+      return (
+        <div className="streams">
 
-          if (Object.keys(this.state.selectedGame).length !== 0) {
-            return <StreamsGameDetail game={this.state.selectedGame} onBackClick={() => {this.setState({ selectedGame: {} })}}/>
-          } else {
-            return <StreamGames games={this.state.games} onSelectGame={this.handleGameSelected} />;
-          }
+          {(() => {
 
-        })()}
+            if (Object.keys(this.state.selectedGame).length !== 0) {
+              return <StreamsGameDetail game={this.state.selectedGame} onBackClick={() => {this.setState({ selectedGame: {} })}}/>
+            } else {
+              return <StreamGames games={this.state.games} onSelectGame={this.handleGameSelected} />;
+            }
 
-      </div>
-    );
+          })()}
+
+        </div>
+      );
+    }
+
   };
 }
 

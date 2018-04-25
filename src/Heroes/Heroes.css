@@ -1,0 +1,18 @@
+.heroes {
+  height: 50%;
+  width: 100%;
+  display: flex;
+}
+
+.chart {
+  flex: 3;
+}
+
+.top {
+  flex: 2;
+  color: #F7F8FC;
+}
+
+.top > .top-card {
+  margin-top: 3rem;
+}

@@ -1,0 +1,17 @@
+.top-card h1 {
+  margin: .5rem 0;
+  font-size: 4rem;
+}
+
+.top-card h2 {
+  margin: 0;
+  color: #8C9ED1;
+}
+
+.top-card h3 {
+  margin: 0;
+  font-style: italic;
+  font-weight: 400;
+  font-size: .9rem;
+  color: #717476;
+}
